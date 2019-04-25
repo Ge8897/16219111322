@@ -1,0 +1,32 @@
+﻿{%extends "index.html" %}
+{% block head %}
+<li><a href="http://127.0.0.1:8000/index">首页</a></li>
+<li class="active"><a href="http://127.0.0.1:8000/movies">豆瓣前250部电影</a></li>
+<li><a href="http://127.0.0.1:8000/weathers">各地天气情况</a></li>
+<li><a href="http://127.0.0.1:8000/phones">京东小米9</a></li>
+<li><a href="http://127.0.0.1:8000/updatabase">更新</a></li>
+<form class="navbar-form navbar-right" action="/searchmovies" method="POST">
+  {% csrf_token %}
+    <input type="text" class="form-control" placeholder="{{searchkey}}" name="key">
+    <button type="submit" class="btn btn-success">搜索</button>
+</form>
+{% endblock %}
+{% block mainbody %}
+<h1 >{{hello}}</h1>
+<table class="table table-hover">
+  <tr>
+    <th >电影名称</th>
+    <th >简介</th>
+    <th >爬取时间</th>
+    <th></th>
+  </tr>
+    {% for movie in movies %}
+    <tr>
+      <td><a href="{{movie.url}}">{{movie.name}}</a></td>
+      <td>{{movie.synopsis}}</td>
+      <td>{{movie.time}}</td>
+      <td ><a class="btn btn-primary btn-sm" href="{{movie.url}}" role="button">查看</a></td>
+    </tr>
+    {% endfor %} 
+</table>
+{% endblock %}

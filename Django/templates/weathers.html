@@ -1,0 +1,36 @@
+{%extends "index.html" %}
+{% block head %}
+<li><a href="http://127.0.0.1:8000/index">首页</a></li>
+<li><a href="http://127.0.0.1:8000/movies">豆瓣前250部电影</a></li>
+<li class="active"><a href="http://127.0.0.1:8000/weathers">各地天气情况</a></li>
+<li><a href="http://127.0.0.1:8000/phones">京东小米9</a></li>
+<li><a href="http://127.0.0.1:8000/updatabase">更新</a></li>
+<form class="navbar-form navbar-right" action="/searchweathers" method="POST">
+    {% csrf_token %}
+      <input type="text" class="form-control" placeholder="{{searchkey}}" name="key">
+      <button type="submit" class="btn btn-success">搜索</button>
+</form>
+{% endblock %}
+{% block mainbody %}
+<h1>{{hello}}</h1>
+<table class="table table-hover" >
+    <tr>
+        <th >所在位置</th>
+        <th >爬取日期</th>
+        <th >风级</th>
+        <th >最低温度</th>
+        <th > 最高温度</th>
+        <th >天气</th>
+    </tr>
+    {% for weather in weathers %}
+    <tr>
+        <td align="left">{{weather.city}}</td>
+        <td align="left">{{weather.dates}}</td>
+        <td align="left">{{weather.winL}}</td>
+        <td align="left">{{weather.temperatureLow}}</td>
+        <td align="left">{{weather.temperatureHigh}}</td>
+        <td align="left">{{weather.weather}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

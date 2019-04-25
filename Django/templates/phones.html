@@ -1,0 +1,32 @@
+{%extends "index.html" %}
+{% block head %}
+<li><a href="http://127.0.0.1:8000/index">首页</a></li>
+<li><a href="http://127.0.0.1:8000/movies">豆瓣前250部电影</a></li>
+<li><a href="http://127.0.0.1:8000/weathers">各地天气情况</a></li>
+<li class="active"><a href="http://127.0.0.1:8000/phones">京东小米9</a></li>
+<li><a href="http://127.0.0.1:8000/updatabase">更新</a></li>
+<form class="navbar-form navbar-right" action="/searchphones" method="POST">
+{% csrf_token %}
+    <input type="text" class="form-control" placeholder="{{searchkey}}" name="key">
+    <button type="submit" class="btn btn-success">搜索</button>
+</form>
+{% endblock %}
+{% block mainbody %}
+<h1>{{hello}}</h1>
+<table class="table table-striped">
+  <tr>
+    <th style="text-align: center">价格</th>
+    <th style="text-align: left">手机类型</th>
+    <th style="text-align: center">爬取时间</th>
+    <th></th>
+  </tr>
+  {% for phone in phones %}
+  <tr >
+    <td >{{phone.price}}</td>
+    <td align="left" ><a href="{{phone.url}}">{{phone.name}}</a></td>
+    <td >{{phone.time}}</td>
+    <td ><a class="btn btn-primary btn-sm" href="{{phone.url}}" role="button">查看</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
